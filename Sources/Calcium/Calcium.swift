@@ -2,18 +2,13 @@ import GRProvider
 import SkeletonView
 import UIKit
 
-
 open class GRSkeletonTableViewProvider<Section: Sectionable>: GRTableViewProvider<Section>, SkeletonTableViewDataSource {
 
     public typealias SkeletonCellIdentifierProvider = (GRSkeletonTableViewProvider, UITableView, IndexPath, Section) -> ReusableCellIdentifier
     public var configureSkeletonCellIdentifier: SkeletonCellIdentifierProvider? = nil
 
     public func numSections(in tableSkeletonView: UITableView) -> Int {
-        self.numberOfSections(in: tableSkeletonView)
-    }
-
-    public func collectionSkeletonView(_ skeletonView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.tableView(skeletonView, numberOfRowsInSection: section)
+        1
     }
 
     public func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
