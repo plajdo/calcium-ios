@@ -12,76 +12,89 @@ import UIKit
 
 // MARK: - Typealiases
 
-public typealias SkeletonCellIdentifierProvider = (SkeletonTableViewProvider, UITableView, IndexPath) -> ReusableCellIdentifier
-public typealias SkeletonHeaderFooterIdentifierProvider = (SkeletonTableViewProvider, UITableView, Int) -> ReusableCellIdentifier
-public typealias SkeletonSectionCountProvider = (SkeletonTableViewProvider, UITableView) -> Int
-public typealias SkeletonSectionItemCountProvider = (SkeletonTableViewProvider, UITableView, Int) -> Int
+public typealias SkeletonTableViewCellIdentifierProvider = (SkeletonTableViewProvider, UITableView, IndexPath) -> ReusableCellIdentifier
+public typealias SkeletonTableViewHeaderFooterIdentifierProvider = (SkeletonTableViewProvider, UITableView, Int) -> ReusableCellIdentifier
+public typealias SkeletonTableViewSectionCountProvider = (SkeletonTableViewProvider, UITableView) -> Int
+public typealias SkeletonTableViewSectionItemCountProvider = (SkeletonTableViewProvider, UITableView, Int) -> Int
+
+public typealias SkeletonCollectionViewCellIdentifierProvider = (SkeletonCollectionViewProvider, UICollectionView, IndexPath) -> ReusableCellIdentifier
+public typealias SkeletonCollectionViewSupplementaryItemIdentifierProvider = (SkeletonCollectionViewProvider, UICollectionView, String, IndexPath) -> ReusableCellIdentifier
+public typealias SkeletonCollectionViewSectionCountProvider = (SkeletonCollectionViewProvider, UICollectionView) -> Int
+public typealias SkeletonCollectionViewSectionItemCountProvider = (SkeletonCollectionViewProvider, UICollectionView, Int) -> Int
 
 // MARK: - Configuration
 
-public class SkeletonTableViewProviderConfiguration {
+public class SkeletonTableViewConfiguration {
 
-    public var configureSkeletonCellIdentifier: SkeletonCellIdentifierProvider? = nil
-    public var configureSkeletonSectionCount: SkeletonSectionCountProvider? = nil
-    public var configureSkeletonSectionItemCount: SkeletonSectionItemCountProvider? = nil
-    public var configureSkeletonSectionHeaderIdentifier: SkeletonHeaderFooterIdentifierProvider? = nil
-    public var configureSkeletonSectionFooterIdentifier: SkeletonHeaderFooterIdentifierProvider? = nil
+    public var configureSkeletonTableViewCellIdentifier: SkeletonTableViewCellIdentifierProvider? = nil
+    public var configureSkeletonTableViewSectionCount: SkeletonTableViewSectionCountProvider? = nil
+    public var configureSkeletonTableViewSectionItemCount: SkeletonTableViewSectionItemCountProvider? = nil
+    public var configureSkeletonTableViewSectionHeaderIdentifier: SkeletonTableViewHeaderFooterIdentifierProvider? = nil
+    public var configureSkeletonTableViewSectionFooterIdentifier: SkeletonTableViewHeaderFooterIdentifierProvider? = nil
 
 }
 
+public class SkeletonCollectionViewConfiguration {
 
-// MARK: - Protocol
+    public var configureSkeletonCollectionViewCellIdentifier: SkeletonCollectionViewCellIdentifierProvider? = nil
+    public var configureSkeletonCollectionViewSupplementaryItemIdentifier: SkeletonCollectionViewSupplementaryItemIdentifierProvider? = nil
+    public var configureSkeletonCollectionViewSectionCount: SkeletonCollectionViewSectionCountProvider? = nil
+    public var configureSkeletonCollectionViewSectionItemCount: SkeletonCollectionViewSectionItemCountProvider? = nil
+
+}
+
+// MARK: - SkeletonTableViewProvider
 
 public protocol SkeletonTableViewProvider: SkeletonTableViewDelegate, SkeletonTableViewDataSource {
 
-    var skeletonTableViewConfiguration: SkeletonTableViewProviderConfiguration { get }
+    var skeletonTableViewConfiguration: SkeletonTableViewConfiguration { get }
 
 }
 
 public extension SkeletonTableViewProvider {
 
-    var configureSkeletonCellIdentifier: SkeletonCellIdentifierProvider? {
+    var configureSkeletonCellIdentifier: SkeletonTableViewCellIdentifierProvider? {
         get {
-            skeletonTableViewConfiguration.configureSkeletonCellIdentifier
+            skeletonTableViewConfiguration.configureSkeletonTableViewCellIdentifier
         }
         set {
-            skeletonTableViewConfiguration.configureSkeletonCellIdentifier = newValue
+            skeletonTableViewConfiguration.configureSkeletonTableViewCellIdentifier = newValue
         }
     }
 
-    var configureSkeletonSectionCount: SkeletonSectionCountProvider? {
+    var configureSkeletonSectionCount: SkeletonTableViewSectionCountProvider? {
         get {
-            skeletonTableViewConfiguration.configureSkeletonSectionCount
+            skeletonTableViewConfiguration.configureSkeletonTableViewSectionCount
         }
         set {
-            skeletonTableViewConfiguration.configureSkeletonSectionCount = newValue
+            skeletonTableViewConfiguration.configureSkeletonTableViewSectionCount = newValue
         }
     }
 
-    var configureSkeletonSectionItemCount: SkeletonSectionItemCountProvider? {
+    var configureSkeletonSectionItemCount: SkeletonTableViewSectionItemCountProvider? {
         get {
-            skeletonTableViewConfiguration.configureSkeletonSectionItemCount
+            skeletonTableViewConfiguration.configureSkeletonTableViewSectionItemCount
         }
         set {
-            skeletonTableViewConfiguration.configureSkeletonSectionItemCount = newValue
+            skeletonTableViewConfiguration.configureSkeletonTableViewSectionItemCount = newValue
         }
     }
 
-    var configureSkeletonSectionHeaderIdentifier: SkeletonHeaderFooterIdentifierProvider? {
+    var configureSkeletonSectionHeaderIdentifier: SkeletonTableViewHeaderFooterIdentifierProvider? {
         get {
-            skeletonTableViewConfiguration.configureSkeletonSectionHeaderIdentifier
+            skeletonTableViewConfiguration.configureSkeletonTableViewSectionHeaderIdentifier
         }
         set {
-            skeletonTableViewConfiguration.configureSkeletonSectionHeaderIdentifier = newValue
+            skeletonTableViewConfiguration.configureSkeletonTableViewSectionHeaderIdentifier = newValue
         }
     }
 
-    var configureSkeletonSectionFooterIdentifier: SkeletonHeaderFooterIdentifierProvider? {
+    var configureSkeletonSectionFooterIdentifier: SkeletonTableViewHeaderFooterIdentifierProvider? {
         get {
-            skeletonTableViewConfiguration.configureSkeletonSectionFooterIdentifier
+            skeletonTableViewConfiguration.configureSkeletonTableViewSectionFooterIdentifier
         }
         set {
-            skeletonTableViewConfiguration.configureSkeletonSectionFooterIdentifier = newValue
+            skeletonTableViewConfiguration.configureSkeletonTableViewSectionFooterIdentifier = newValue
         }
     }
 
@@ -111,11 +124,79 @@ public extension SkeletonTableViewProvider {
 
 }
 
+// MARK: - SkeletonCollectionViewProvider
+
+public protocol SkeletonCollectionViewProvider: SkeletonCollectionViewDelegate, SkeletonCollectionViewDataSource {
+
+    var skeletonCollectionViewConfiguration: SkeletonCollectionViewConfiguration { get }
+
+}
+
+public extension SkeletonCollectionViewProvider {
+
+    var configureSkeletonCollectionViewCellIdentifier: SkeletonCollectionViewCellIdentifierProvider? {
+        get {
+            skeletonCollectionViewConfiguration.configureSkeletonCollectionViewCellIdentifier
+        }
+        set {
+            skeletonCollectionViewConfiguration.configureSkeletonCollectionViewCellIdentifier = newValue
+        }
+    }
+
+    var configureSkeletonCollectionViewSupplementaryItemIdentifier: SkeletonCollectionViewSupplementaryItemIdentifierProvider? {
+        get {
+            skeletonCollectionViewConfiguration.configureSkeletonCollectionViewSupplementaryItemIdentifier
+        }
+        set {
+            skeletonCollectionViewConfiguration.configureSkeletonCollectionViewSupplementaryItemIdentifier = newValue
+        }
+    }
+
+    var configureSkeletonCollectionViewSectionCount: SkeletonCollectionViewSectionCountProvider? {
+        get {
+            skeletonCollectionViewConfiguration.configureSkeletonCollectionViewSectionCount
+        }
+        set {
+            skeletonCollectionViewConfiguration.configureSkeletonCollectionViewSectionCount = newValue
+        }
+    }
+
+    var configureSkeletonCollectionViewSectionItemCount: SkeletonCollectionViewSectionItemCountProvider? {
+        get {
+            skeletonCollectionViewConfiguration.configureSkeletonCollectionViewSectionItemCount
+        }
+        set {
+            skeletonCollectionViewConfiguration.configureSkeletonCollectionViewSectionItemCount = newValue
+        }
+    }
+
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        guard let identifier = configureSkeletonCollectionViewCellIdentifier?(self, skeletonView, indexPath) else {
+            fatalError("⚠️ Cannot dequeue skeleton cell for IndexPath \(indexPath)")
+        }
+
+        return identifier
+    }
+
+    func collectionSkeletonView(_ skeletonView: UICollectionView, supplementaryViewIdentifierOfKind: String, at indexPath: IndexPath) -> ReusableCellIdentifier? {
+        configureSkeletonCollectionViewSupplementaryItemIdentifier?(self, skeletonView, supplementaryViewIdentifierOfKind, indexPath)
+    }
+
+    func numSections(in collectionSkeletonView: UICollectionView) -> Int {
+        configureSkeletonCollectionViewSectionCount?(self, collectionSkeletonView) ?? 1
+    }
+
+    func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        configureSkeletonCollectionViewSectionItemCount?(self, skeletonView, section) ?? UICollectionView.automaticNumberOfSkeletonItems
+    }
+
+}
+
 // MARK: - Implementation
 
 open class GRSkeletonTableViewProvider<Section: Sectionable>: GRTableViewProvider<Section>, SkeletonTableViewProvider {
 
-    public var skeletonTableViewConfiguration: SkeletonTableViewProviderConfiguration = SkeletonTableViewProviderConfiguration()
+    public var skeletonTableViewConfiguration = SkeletonTableViewConfiguration()
 
 }
 
@@ -124,6 +205,21 @@ open class GRSkeletonDiffableTableViewProvider<Section: Sectionable>: GRDiffable
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { 0 }
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { UITableViewCell() }
 
-    public var skeletonTableViewConfiguration: SkeletonTableViewProviderConfiguration = SkeletonTableViewProviderConfiguration()
+    public var skeletonTableViewConfiguration = SkeletonTableViewConfiguration()
+
+}
+
+open class GRSkeletonCollectionViewProvider<Section: Sectionable>: GRCollectionViewProvider<Section>, SkeletonCollectionViewProvider {
+
+    public var skeletonCollectionViewConfiguration = SkeletonCollectionViewConfiguration()
+
+}
+
+open class GRSkeletonDiffableCollectionViewProvider<Section: Sectionable>: GRDiffableCollectionViewProvider<Section>, SkeletonCollectionViewProvider where Section: Hashable & Equatable, Section.Item: Hashable & Equatable {
+
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { 0 }
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell { UICollectionViewCell() }
+
+    public var skeletonCollectionViewConfiguration = SkeletonCollectionViewConfiguration()
 
 }
