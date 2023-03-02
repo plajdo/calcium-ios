@@ -1,0 +1,32 @@
+{
+  "pins" : [
+    {
+      "identity" : "deepdiff",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onmyway133/DeepDiff.git",
+      "state" : {
+        "revision" : "9d5c67c58b9f06c0c638bd98ee4093abbe4a08a1",
+        "version" : "2.3.0"
+      }
+    },
+    {
+      "identity" : "grprovider",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/GoodRequest/GRProvider",
+      "state" : {
+        "branch" : "master",
+        "revision" : "2edf5f5abdfe4c799c6afc4d95c980dacd4749f5"
+      }
+    },
+    {
+      "identity" : "skeletonview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Juanpe/SkeletonView.git",
+      "state" : {
+        "revision" : "739a4f5d78731bebc48811c75fa9e1f4c4cef23e",
+        "version" : "1.30.4"
+      }
+    }
+  ],
+  "version" : 2
+}
